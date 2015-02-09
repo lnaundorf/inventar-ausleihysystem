@@ -1,0 +1,6 @@
+{% for b in benutzer %}
+<tr><td><a href="/benutzer/info/{{b.id}}">{{ b.nachname }}, {{b.vorname }}</a></td><td>{{ b.telefon }}</td><td>{{ b.haustel }}</td>
+<td>{{ b.status }}</td><td>{{ b.raum }}</td></tr>
+{% empty %}
+<tr><td colspan="5" style="color:red; font-weight: bold">Keine passenden Benutzer gefunden</td></tr>
+{% endfor %}

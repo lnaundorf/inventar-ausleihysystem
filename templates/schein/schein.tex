@@ -1,0 +1,101 @@
+\documentclass[10pt, a4paper,oneside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[absolute]{textpos}
+\usepackage{graphicx}
+\usepackage[ngerman]{babel}
+\usepackage[hmargin=2cm,vmargin=2cm]{geometry}
+
+\begin{document}
+\thispagestyle{empty}
+\section*{\Large \sc{Technische Universität Berlin}}
+AV-Studio der Fakultät 1\\
+Sekr. FR 4-1 \\
+Raum FH 402 \\
+Fraunhoferstraße 33-36 \\
+10587 Berlin \\
++49 (0)30 314-73578\\
+\\
+\begin{textblock}{0.5}(10.75,1)
+\includegraphics[scale=0.15]{/home/leif/katalog/templates/schein/TUBerlin_Logo_sw.png}
+%Fakultät~1\\
+%Geisteswissenschaften
+\end{textblock}
+
+\noindent\textbf{Ausleihschein Nr. {{nummer}} }\\\\
+\begin{tabular}{|p{3cm}|p{7cm}|}
+\hline
+Name, Vorname & {{ b.nachname }}, {{ b.vorname}}\\
+\hline
+Privat-Tel. & {{b.telefon}}\\
+\hline
+Privatanschrift& {{anschrift1}}\\
+& {{anschrift2}}\\
+& {{anschrift3}}\\
+\hline
+WE & \\
+\hline
+Status & {{b.status}}\\
+\hline
+Raum & {{b.raum}}\\
+\hline
+Haus-Tel. & {{b.haustel}}\\
+\hline
+\end{tabular}
+\\\\\\
+%Unterschrift:\hspace{0.25cm} \makebox[1.5in]{\hrulefill}
+%\\\\
+Die nachstehenden Geräte wurden von mir mit/ohne Zubehör ausgeliehen:
+
+\begin{center}
+\begin{tabular}{|p{1.25cm}|p{2cm}|p{6cm}|p{6.5cm}|}
+\hline
+Lfd. Nr. & Geräte-Nr. & Art & Bezeichnung \\
+\hline
+\hline
+{% for g in geraete %}
+{{g.order}} & {{ g.nummer }} & {{g.typ.name}} & {{g.name}} \\
+\hline
+{% endfor %}
+\end{tabular}
+\end{center}
+\begin{enumerate}
+\item Der Entleiher haftet für die Folgen vertragswidrigen Gebrauchs nach den Vorschriften des BGB.
+\item Der Entleiher haftet insbesondere für die fristgerechte Rückgabe der entliehenen Geräte. Es wird darauf hingewiesen, dass bei Nichteinhaltung eine verschärfte Haftung eintritt.
+\item Eine Verlängerung der Ausleihfrist bedarf einer persönlichen oder schriftlichen Bestätigung des Ausleihberechtigten.
+\item Etwa aufgetretene Mängel, Schäden oder Verlust der Geräte sind dem AVS unverzüglich anzuzeigen. Bei verspäteter Rückgabe hat der Entleiher nachzuweisen, dass ein etwaiger Schaden oder Verlust der/des Geräte(s) während der Leihfrist aufgetreten ist.
+\end{enumerate}
+\begin{tabular}{r l}
+Hiermit bestätige ich den Empfang der Geräte am & {{begin_date|date:"d.m.Y"}} \\
+und die Rückgabe am & {{ end_date|date:"d.m.Y"}} \\
+Sowie die Kenntnis der o.g. Haftungsbedingungen
+\end{tabular}
+\\\\\\
+{% if not anderer_abholer %}\begin{tabular}{|p{3cm}|p{7cm}|}
+\hline
+Abholer & {{ b.nachname }}, {{ b.vorname}}\\
+\hline
+Privatanschrift  & {{anschrift1}}\\
+Abholer& {{anschrift2}}\\
+& {{anschrift3}}\\
+\hline
+Telefon Abholer & {{b.telefon}}\\
+\hline
+Abholer-VS & \\
+\hline
+\end{tabular}
+{% else %}\begin{tabular}{|p{3cm}|p{7cm}|}
+\hline
+Abholer & \\
+\hline
+Privatanschrift  &\\
+Abholer& \\
+& \\
+\hline
+Telefon Abholer & \\
+\hline
+Abholer-VS & \\
+\hline
+\end{tabular}
+{% endif %}\\\\\\\\
+Unterschrift:\hspace{0.25cm} \makebox[1.5in]{\hrulefill}
+\end{document}

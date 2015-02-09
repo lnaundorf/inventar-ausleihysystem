@@ -1,0 +1,20 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+<ul class="nav">
+<li{% if active == 'inventar' %} class="active"{% endif %}><a href="/inventar">Inventar</a></li>
+<li class="divider-vertical"></li>
+<li{% if active == 'dashboard' %} class="active"{% endif %}><a href="/dashboard">Dashboard</a></li>
+<li class="divider-vertical"></li>
+<li{% if active == 'clientManagement' %} class="active"{% endif %}><a href="/pool">Client Management</a></li>
+</ul>
+{% if user.is_authenticated %}
+<div class="pull-right">
+<ul class="nav">
+<li><a href="/logout/">Logout</a></li>
+</ul>
+</div>
+{% endif %}
+</div>
+</div>
+</div>

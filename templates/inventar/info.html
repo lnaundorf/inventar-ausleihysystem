@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/inventar/">Zurück</a>
+<h2>Gerätinfo</h2>
+<table class="table table-bordered">
+<tr><td>Nummer</td><td>{{g.nummer}}</td></tr>
+<tr><td>Typ</td><td>{{g.typ.name}}</td></tr>
+<tr><td>Name</td><td>{{g.name}}</td></tr>
+<tr><td>Kommentar</td><td>{{g.kommentar}}</td></tr>
+<tr><td>Ort</td><td>{{g.ort}}</td></tr>
+<tr><td>Status</td><td>
+{%  if g.status == 0 %}
+<span style="color:green">Verfügbar</span>
+{% else %}{% if g.status == 1 %}
+<span style="color:orange">Auf Ausleihschein</span>
+{% else %}{% if g.status == 2 %}
+{% if g.schein %}
+<a style="color:red" href="/schein/info/{{g.schein.id}}/">Ausgeliehen bis {{g.schein.end_date|date:"d.m." }}</a>
+{% else %}
+<span style="color:red">Ausgeliehen</span>
+{% endif %}
+{% else %}
+<span style="color:red">Nicht ausleihbar / blockiert</span>
+{% endif %}{% endif %}{% endif %}
+</td></tr>
+</table>
+<a href="/inventar/edit/{{g.id}}" class="btn btn-primary">bearbeiten</a>
+
+
+{% endblock %}

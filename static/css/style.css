@@ -1,0 +1,52 @@
+.login {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 100px;
+	border: solid 1px #999;
+	padding: 20px;
+	width: 375px;
+	font-size: 14pt;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.logintable input {
+	font-size: 14pt;
+}
+
+.logintable td {
+	font-size: 14pt;
+	padding: 0px;
+}
+
+.error {
+	color: #C00;
+	font-weight: bold;
+}
+
+.heading {
+	margin-top: 23px;
+	margin-bottom: 50px;
+}
+
+.tableright {
+	float: right;
+}
+
+.schein {
+	border: solid 1px #999;
+	padding: 5px;
+	/*width: 100%;*/
+	font-size: 8pt;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+}
+
+.late {
+	color: red;
+	font-weight: bold;
+}
+
+.suche {
+	padding-left: 25px;
+}

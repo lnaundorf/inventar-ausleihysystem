@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Benutzer</h1>
+<div class="row">
+<div class="span6 suche"><form class="form-horizontal"><div class="control-group">Filter: <input id="filter" type="text" onkeyup="filter_search('benutzer')"></div></form></div><div align="right" class="span6"><a
+href="/benutzer/create/?liste" class="btn btn-primary">Neuen Benutzer erstellen</a></div>
+</div>
+<div id="tablediv">
+<table class="table table-bordered tablesorter" id="benutzertable"><thead>
+<tr><th>Name</th><th>Tel.</th><th>Haustel.</th><th>Status</th><th>Raum</th></tr></thead><tbody>
+{% include "benutzer/table.html" %}
+</tbody></table></div>
+<script type="text/javascript">
+$(document).ready(function() 
+    { 
+        $("#benutzertable").tablesorter(); 
+    } 
+);
+</script>
+{% endblock %}

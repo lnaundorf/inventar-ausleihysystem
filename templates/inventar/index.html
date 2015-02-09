@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Inventarliste</h1>
+<div class="row">
+<div class="span6 suche" id="inventarsuche"><form class="form-horizontal"><div class="control-group">Filter: <input id="filter" type="text" onkeyup="filter_search('inventar')"></div></form></div><div align="right" class="span6"><a href="/inventar/create/" class="btn btn-primary">Neues Gerät erstellen</a></div></div>
+Tipp: Mit Klick auf einen Spaltennamen lassen sich die Geräte nach dieser Spalte sortieren
+<div id="tablediv">
+<table class="tablesorter table table-bordered" id="inventartable"><thead>
+<tr><th>Nummer</th><th>Typ</th><th>Name</th><th>Status</th><th>Ort</th><th></th></tr></thead><tbody>
+{% include "inventar/table.html" %}
+</tbody></table></div>
+<script type="text/javascript">
+$(document).ready(function() { 
+	$("#inventartable").tablesorter({headers: {5: { sorter: false}}});
+});
+</script>
+{% endblock %}

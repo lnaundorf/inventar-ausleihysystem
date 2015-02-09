@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{{back}}">Zurück</a>
+<h2>{{ title }}</h2>
+<form class="form-horizontal" method="POST">
+{% csrf_token %}
+{% for field in form %}
+  <div class="control-group 
+	{% if field.errors %}
+	error
+	{% endif %}
+">
+    {{field.label_tag}}
+    <div class="controls">
+      {{field}}
+		{% if field.name == 'typ' %}
+			<a href="#modal" role="button" class="btn" data-toggle="modal">Neuen Gerätetyp erstellen</a>
+		{% endif %}
+    </div>
+  </div>
+{% endfor %}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">{{ submit }}</button>
+    </div>
+  </div>
+</form>
+
+<div class="modal hide fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Neuen Gerätetyp erstellen</h3>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="name">Name</label>
+    <div class="controls">
+      <input type="text" id="typeName" placeholder="Name">
+    </div>
+  </div>
+</form>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">zurück</button>
+    <button class="btn btn-primary" onclick="newType()">Erstellen</button>
+  </div>
+</div>
+
+{% endblock %}

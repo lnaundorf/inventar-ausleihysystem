@@ -1,0 +1,12 @@
+<div class="well">
+<ul class="nav nav-list">
+<li><a href="/inventar/">Inventar</a></li>
+<li><a href="/benutzer/">Benutzer</a></li>
+<li><a href="/schein/">Scheine</a></li>
+{% comment %}
+{% if user.is_authenticated %}
+<li class="divider"/>
+<li><a href="/logout/">Ausloggen</a></li>
+{% endif%}
+{% endcomment %}
+</div>

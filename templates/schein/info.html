@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/schein/">Zurück</a>
+<h2>Info Schein Nr. {{s.id}}</h2>
+<table class="table table-bordered">
+<tr><td>Benutzer</td><td>{{s.benutzer.nachname}}, {{s.benutzer.vorname}}</td></tr>
+<tr><td>Geräte</td><td>
+{% for g in s.geraete_liste %}
+<a href="/inventar/info/{{g.id}}/">{{g.nummer}}: {{g.name}}</a><br/>
+{% endfor %}
+</td></tr>
+<tr><td>Ausleihdatum</td><td>{{s.begin_date|date:"d.m."}}</td></tr>
+<tr><td>Rückgabedatum</td><td
+{% if s.status == 1 and s.late %}
+ class="late"
+{% endif %}
+>{{s.end_date|date:"d.m."}}</td></tr>
+<tr><td>Status</td><td>
+{% if s.status == 1 %}
+<span style="color: red">ausgeliehen</span>
+{% else %}
+<span style="color: green">zurückgegeben</span>
+{% endif %}
+</td></tr>
+<tr><td>Scheindownload</td><td><a href="/schein/download/?id={{s.id}}">Klick</a></td></tr>
+<tr><td>Ausgestellt von:</td><td>{{s.issue_user.username}}
+{% if s.issue_user.first_name and s.issue_user.last_name %}
+({{s.issue_user.first_name}} {{s.issue_user.last_name}})
+{% endif %}
+</td></tr>
+<tr><td>Zurückgenommen von:</td><td>{{s.return_user.username}}
+{% if s.return_user.first_name and s.return_user.last_name %}
+({{s.return_user.first_name}} {{s.return_user.last_name}})
+{% endif %}
+</td></tr>
+</table>
+{% if s.status == 1 %}
+<a class="btn btn-success" href="?switchStatus">Als zurückgegeben markieren</a></span>
+{% else %}
+<a class="btn btn-danger" href="?switchStatus">Als ausgeliehen markieren</a></span>
+{% endif %}
+<a style="margin-left: 200px" class="btn btn-primary" href="/schein/edit/{{s.id}}/">bearbeiten</a>
+
+{% endblock %}

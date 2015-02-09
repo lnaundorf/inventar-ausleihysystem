@@ -1,0 +1,5 @@
+{% for c in computers %}host {{c.name}} {
+	hardware ethernet {{c.mac_address}};
+	fixed-address {{c.ip_address}};
+}
+{% endfor %}

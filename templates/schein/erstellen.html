@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Ausleihschein erstellen</h1>
+<div class="row">
+<div class="span5">
+<h2>Benutzer</h2>
+<div style="margin-bottom: 10px">
+<select name="benutzer" onchange="getUser(this.value)" id="benutzer" data-placeholder="Benutzer auswählen" id="benutzer">
+{% for ben in benutzer %}
+<option value="{{ben.id}}"{% if b.id == ben.id %} selected{% endif %}>{{ben.nachname}}, {{ben.vorname}}</option>
+{% endfor %}
+</select><a style="float: right; margin-top: 3px" href="/benutzer/create">Neuen Benutzer erstellen</a></div>
+<div id="UserInfo">
+{% include "benutzer/infotable.html" %}
+</div>
+</div>
+<div class="span6">
+<h2>Geräteliste</h2>
+<table class="table table-bordered">
+<tr><th>Nummer</th><th>Typ</th><th>Name</th><th>Ort</th></tr>
+{% for g in schein_geraete %}
+<tr><td>{{g.nummer}}</td><td>{{g.typ.name}}</td><td>{{g.name}}</td><td>{{ g.ort }}</td></tr>
+{% endfor %}
+</table>
+</div>
+</div>
+
+<div class="row">
+<div class="span6">
+<form class="form-horizontal">
+<div class="control-group">
+    <label for="ausleihDate">Ausleihdatum</label>
+    <div class="controls">
+      <input type="text" id="dp1" data-date-format="dd.mm.yyyy" value="{% now "d.m.Y" %}">
+    </div>
+</div>
+<div class="control-group">
+    <label for="ausleihDate">Rückgabedatum</label>
+    <div class="controls">
+      <input type="text" id="dp2" data-date-format="dd.mm.yyyy" value="{% now "d.m.Y" %}">
+    </div>
+</div>
+<div class="control-group">
+    <div class="controls">
+      <label class="checkbox">
+        <input type="checkbox" id="abholer" onChange="resetDownload()"> anderer Abholer
+      </label>
+    </div>
+  </div>
+</form>
+</div>
+<div class="span4">
+<a href="javascript:download()">Ausleihschein herunterladen</a>
+<div id="download" style="margin-top: 30px"></div>
+</div>
+</div>
+<script>
+$(function() {
+	$('#dp1').datepicker({
+		weekStart: 1
+	}).on('changeDate', function(ev) {resetDownload();});
+	$('#dp2').datepicker().on('changeDate', function(ev) {resetDownload();});
+	$('#benutzer').select2({
+		width: 'resolve',
+		formatNoMatches : function(input) {
+			return 'Kein Benutzer gefunden';
+		},
+	});
+});
+</script>
+{% endblock %}

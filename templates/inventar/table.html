@@ -1,0 +1,33 @@
+{% for g in geraete %}
+<tr><td><a href="/inventar/info/{{g.id}}">
+{% if g.nummer %}
+{{ g.nummer }}
+{% else %}
+&ltkeine Nummer&gt
+{% endif %}
+</a></td><td>{{ g.typ.name }}</td><td>{{ g.name }}</td><td>
+{%  if g.status == 0 %}
+<span style="color:green">Verfügbar</span>
+{% else %}{% if g.status == 1 %}
+<span style="color:orange">Auf Ausleihschein</span>
+{% else %}{% if g.status == 2 %}
+{% if g.schein %}
+<a style="color:red" href="/schein/info/{{g.schein.id}}/">Ausgeliehen bis {{g.schein.end_date|date:"d.m." }}</a>
+{% else %}
+<span style="color: red" >Ausgeliehen</span>
+{% endif %}
+{% else %}
+<span style="color:red">Nicht ausleihbar / blockiert</span>
+{% endif %}{% endif %}{% endif %}
+</td><td>
+{{ g.ort }}
+</td><td width="14">
+{% if g.status == 0 %}
+<a href="javascript:addItem({{g.id}})"><i class="icon-plus"></i></a>
+{% else %}{% if g.status == 1 %}
+<a href="javascript:removeItem({{g.id}})"><i class="icon-minus"></i></a>
+{% endif %}{% endif %}
+</td></tr>
+{% empty %}
+<tr><td colspan="6" style="color:red; font-weight: bold">Keine passenden Geräte gefunden</td></tr>
+{% endfor %}

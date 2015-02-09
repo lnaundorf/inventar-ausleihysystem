@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html><head><title>Inventar AV-Studio</title>
+<link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet" type="text/css" />
+<link href="{{STATIC_URL}}css/style.css" rel="stylesheet" type="text/css" />
+<body>
+<div class="heading">
+<h1 align="center">Inventar AV-Studio</h1>
+</div>
+<div class="login">
+{% if form.errors %}
+<p><span class="error">Benutzername oder Passwort falsch</span></p>
+{% endif %}
+
+<form method="POST" action="/login/">
+{% csrf_token %}
+<table class="logintable">
+	<tr><td style="padding-right: 10px"><label>Benutzername:</label></td><td><input type="text" name="username" style="margin-bottom: 5px"></td></tr>
+	<tr><td><label>Passwort:</label></td><td><input type="password" name="password"></td></tr>
+</table>
+<input class="btn btn-primary" type="submit" name="submit" value="anmelden" style="margin-top: 20px"></form></div>
+</body></html>
+

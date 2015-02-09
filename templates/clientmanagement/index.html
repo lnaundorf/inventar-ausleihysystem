@@ -1,0 +1,67 @@
+{% extends "clientmanagement/base_management.html" %}
+
+
+{% block management_content %}
+<ul class="nav nav-tabs" id="categorytab">
+	<li class="active"><a href="#computers">Computer</a></li>
+	<li><a href="#types">Computertypen</a></li>
+	<li><a href="#keys">Windows Keys</a></li>
+</ul>
+
+<div class="tab-content">
+<div class="tab-pane active" id="computers">
+<div class="row">
+<div class="span6"><div class="pull-left"><a href="/pool/dhcp/" target="dhcp">DHCP Konfiguration</a></div></div>
+<div class="span6">
+<div style="margin-bottom: 20px" class="pull-right"><a class="btn btn-primary" href="/pool/computer/create/">Neuen Computer erstellen</a></div></div>
+</div>
+<table class="table table-bordered tablesorter" id="computertable"><thead>
+<tr><th>Typ</th><th>Raum</th><th>Name</th><th>OS</th><th>IP-Adresse</th><th>MAC-Adresse</th></tr></thead>
+<tbody>
+{% for c in computers %}
+<tr><td>{{c.type.vendor}} {{c.type.name}}</td><td>{{c.room|default:"-"}}</td><td><a href="/pool/computer/edit/{{c.id}}">{{c.name|default:"&lt;Kein Name&gt;"}}</a></td><td>{{c.windows_key.short_name|default:"-"}}</td><td>{{c.ip_address|default:"-"}}</td><td>{{c.mac_address|default:"-"}}</td></tr>
+{% endfor %}
+</tbody></table>
+</div>
+<div class="tab-pane" id="types">
+<div style="margin-bottom: 20px" class="pull-right"><a class="btn btn-primary" href="/pool/type/create/">Neuen Computertyp erstellen</a></div>
+<table class="table table-bordered tablesorter" id="typetable"><thead>
+<tr><th>Hersteller</th><th>Name</th><th>Anzahl</th><th>URL</th><th>Beschreibung</th></tr></thead>
+<tbody>
+{% for t in types %}
+<tr><td>{{t.vendor}}</td><td><a href="/pool/type/edit/{{t.id}}">{{t.name}}</a></td><td>{{t.computer_set.all|length}}x</td><td>
+{% if t.url %}
+<a href="{{t.url}}" target="_blank">Link</a>
+{% else %}
+-
+{% endif %}
+<td>{{t.description|linebreaks|default:"-"}}</td></tr>
+{% endfor %}
+</tbody></table>
+</div>
+<div class="tab-pane" id="keys">
+<div style="margin-bottom: 20px" class="pull-right"><a class="btn btn-primary" href="/pool/key/create/">Neuen Windows Key erstellen</a></div>
+<table class="table table-bordered tablesorter" id="keytable"><thead>
+<tr><th>Windowstyp</th><th>Bit</th><th>Key</th><th>Computer</th></tr></thead><tbody>
+{% for key in keys %}
+<tr><td>{{key.name}}</td><td>{{key.bit_string}}</td><td><a href="/pool/key/edit/{{key.id}}">{{key.key}}</a></td><td>
+{% if key.computer %}
+<a href="/pool/computer/edit/{{key.computer.id}}">{{key.computer.name}}</a>
+{% else %}
+-
+{% endif %}
+</td></tr>
+{% endfor %}
+</tbody></table>
+</div>
+</div>
+
+
+<script>
+$('#categorytab a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+});
+$('#computertable').tablesorter();
+</script>
+{% endblock %}

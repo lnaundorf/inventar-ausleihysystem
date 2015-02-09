@@ -1,0 +1,24 @@
+{% extends "clientmanagement/base_management.html" %}
+
+{% block management_content %}
+<form class="form-horizontal" method="POST">
+{% csrf_token %}
+{% for field in form %}
+  <div class="control-group 
+	{% if field.errors %}
+	error
+	{% endif %}
+">
+    {{field.label_tag}}
+    <div class="controls">
+      {{field}}
+    </div>
+  </div>
+{% endfor %}
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn btn-primary">{{ action }}</button>
+    </div>
+  </div>
+</form>
+{% endblock %}

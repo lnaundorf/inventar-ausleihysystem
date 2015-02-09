@@ -1,0 +1,35 @@
+{% extends "base_no_sidebar.html" %}
+
+{% block content %}
+<div class="page-header">
+      <h1>Dashboard <small>AV-Studio</small></h1>
+</div>
+Neue Kategorien und Einträge können über das <a href="/admin/" target="_blank">Administrator Interface</a> hinzugefügt werden unter der Kategorie 'Dashboard'.<br/><br/>
+<ul class="nav nav-tabs" id="categorytab">
+{% for c in categories %}
+	<li{% if forloop.first %} class="active"{% endif %}><a href="#cat{{c.name|cut:" "}}">{{c.name}}</a></li>
+{% endfor %}
+</ul>
+
+<div class="tab-content">
+{% for list in entries %}
+<div class="tab-pane{% if forloop.first %} active{% endif %}" id="cat{% with list|first as first_entry %}{{first_entry.category.name|cut:" "}}{% endwith %}">
+{% for e in list %}
+<h3>{{e.name}}</h3>
+<p>
+{{e.description|safe|linebreaks}}
+</p>
+<a href="{{e.link}}" target="_blank">{{e.link}}</a>
+<hr/>
+{% endfor %}
+</div>	
+{% endfor %}
+</div>
+
+<script>
+$('#categorytab a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show');
+});
+</script>
+{% endblock %}

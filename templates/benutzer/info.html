@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/benutzer/">Zurück</a>
+<h2>Benutzerinfo</h2>
+{% include "benutzer/infotable.html" %}
+<a href="/benutzer/edit/{{b.id}}/" class="btn btn-primary">bearbeiten</a>
+{% endblock %}

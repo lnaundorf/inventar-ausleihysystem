@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Scheine</h1>
+ <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">aktuelle Scheine</a></li>
+    <li><a href="#tab2" data-toggle="tab">vergangene Scheine</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+   	<form class="form-horizontal"><div class="control-group">Filter: <input id="filter_current" type="text" onkeyup="filter_search('schein/current')"></div></form>
+	  <div id="tablediv_current">
+	<table class="table table-bordered tablesorter" id="tablecurrent"><thead>
+<tr><th>Nummer</th><th>Ausleiher</th><th>Geräte</th><th>Ausleihdatum</th><th>Rückgabedatum</th></tr></thead><tbody>
+		{% include "schein/table_current.html" %}
+	  </tbody></table></div>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <form class="form-horizontal"><div class="control-group">Filter: <input id="filter_old" type="text" onkeyup="filter_search('schein/old')"></div></form>
+	  <div id="tablediv_old">
+	<table class="table table-bordered tablesorter" id="tableold"><thead>
+<tr><th>Nummer</th><th>Ausleiher</th><th>Geräte</th><th>Ausleihdatum</th><th>Rückgabedatum</th></tr></thead><tbody>
+		{% include "schein/table_old.html" %}
+	  </tbody></table></div>
+    </div>
+  </div>
+<script>
+$(function() {
+	$('#tab1 a').click(function (e) {
+	  //e.preventDefault();
+	  $(this).tab('show');
+	});
+	$('#tab2 a').click(function (e) {
+	  //e.preventDefault();
+	  $(this).tab('show');
+	});
+	$("#tablecurrent").tablesorter();
+	$("#tableold").tablesorter();
+});
+</script>
+
+
+{% endblock %}

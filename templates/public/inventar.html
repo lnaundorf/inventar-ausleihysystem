@@ -1,0 +1,42 @@
+{% extends "base_no_sidebar.html" %}
+
+{% block content %}
+      <div class="page-header">
+      <h1>Inventarliste AV-Studio <small>Fakult&auml;t 1</small></h1>
+      </div>
+      <div class="row">
+		  <div class="span8">
+		  Dies ist die Inventarliste des AV-Studio. Wenn Sie eines oder mehrere dieser Ger&auml;te ausleihen wollen, so rufen 
+		  Sie uns bitte an oder kommen Sie bei uns vorbei.<br/><br/>
+		  <strong>Bitte beachten Sie:</strong> Aus versicherungstechnischen Gr&auml;nden ist es nur Mitarbeitern der Fakult&auml;t&nbsp;1 sowie 
+		  Dozenten gestattet, direkt Ger&auml;te bei uns auszuleihen. Studenten ben&ouml;tigen die schriftliche Erlaubnis 
+		  eines Dozenten.
+		  </div>
+		  <div class="span3 offset1">
+		  <strong>IT-Service der TU Berlin</strong><br/>
+		  Fakult&auml;t 1<br/>
+		  Raum FH 405<br/>
+		  Fraunhoferstra&szlig;e 33-36<br/>
+		  10587 Berlin<br/>
+		  Tel: +49 (0)30 314-73347<br/><br/>
+		  </div>
+	</div>
+		  <table class="table table-bordered table-striped tablesorter" id="inventartable"><thead>
+		  <tr><th>Name</th><th>Ger&auml;tetyp</th><th>Status</th></tr></thead>
+		  <tbody>
+		{% for g in geraete %}
+			<tr><td>{{g.name}}</td><td>{{g.typ.name}}</td><td>
+			{%  if g.status == 0 %}
+	<span style="color:green">Verfügbar</span>
+			{% else %}
+	<span style="color: red" >Ausgeliehen</span>
+			{% endif %}
+			</td></tr>
+		{% endfor %}
+	</tbody></table>
+<script>
+$(document).ready(function() { 
+  $("#inventartable").tablesorter();
+});
+</script>
+{% endblock %}
