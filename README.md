@@ -1,4 +1,4 @@
-# inventar-ausleihysytem
+# inventar-ausleihysystem
 A django webapp for the inventory of the IT-Service at TU Berlin Fakultät 1.
 Currently, this system runs on ``http://inventar.its.tu-berlin.de/``. A showcase system with login credentials
 
